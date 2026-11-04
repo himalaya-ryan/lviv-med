@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ascii"?>
+  <vum>
+    <product>
+      <name>VMware ESXi</name>
+      <version>8.0</version>
+      <build>24677879</build>
+      <esxVersion>8.0.3</esxVersion>
+      <esxRelease>0.70</esxRelease>
+      <esxUpdateLevel>3</esxUpdateLevel>
+      <releaseDate>2025-04-03T07:38:58.767731</releaseDate>
+    </product>
+    <operations>
+      <scan>
+        <script sequence="1" name="SCAN">
+          <path>precheck.py</path>
+          <args>
+            <arg>--ip={IP_ADDRESS}</arg>
+          </args>
+          <files>
+            <file>metadata.zip</file>
+            <file>esximage.zip</file>
+          </files>
+        </script>
+      </scan>
+      <upgrade>
+        <component sequence="1" name="INSTALLER">
+          <preinstall>
+            <scripts>
+              <script sequence="1" name="STAGE">
+                <path>prep.py</path>
+                <args>
+                  <arg>-s</arg>
+                </args>
+		<files>
+                  <file>metadata.zip</file>
+		  <file>precheck.py</file>
+                  <file>esximage.zip</file>
+		</files>
+              </script>
+            </scripts>
+          </preinstall>
+	  <install>
+	    <scripts>
+	      <script sequence="1" name="SETUP">
+		<path>prep.py</path>
+		<args>
+		  <arg>--ip={IP_ADDRESS}</arg>
+		</args>
+		<files>
+                  <file>metadata.zip</file>
+		  <file>precheck.py</file>
+                  <file>esximage.zip</file>
+		</files>
+	      </script>
+	    </scripts>
+	  </install>
+          <postInstall>
+            <rebootRequired>Yes</rebootRequired>
+            <monitorRequired>Yes</monitorRequired>
+          </postInstall>
+        </component>
+      </upgrade>
+    </operations>
+  </vum>
